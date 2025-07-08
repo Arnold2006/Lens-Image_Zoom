@@ -12,4 +12,4 @@ A lightweight WordPress plugin that adds a circular lens magnifier to images wit
 
 1. Clone this repo or download ZIP:
    ```bash
-   git clone https://github.com/your-username/lens-image-zoom.git
+   git clone [https://github.com/Arnold2006/Lens-Image_Zoom.git]
