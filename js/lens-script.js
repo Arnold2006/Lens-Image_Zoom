@@ -1,37 +1,41 @@
 (function(){
-  document.addEventListener('DOMContentLoaded', function(){
-    const imgs = document.querySelectorAll('img.zoom-lens');
-    imgs.forEach(img => {
-      const lens = document.createElement('div');
-      lens.className = 'zoom-lens-lens';
-      img.parentElement.style.position = 'relative';
-      img.parentElement.appendChild(lens);
+  document.addEventListener("DOMContentLoaded", function () {
+  const zoomImages = document.querySelectorAll("img.zoom-lens");
 
-      const ratio = 2;
-      lens.style.backgroundImage = `url('${img.src}')`;
-      lens.style.backgroundSize = (img.width * ratio) + 'px ' +
-                                   (img.height * ratio) + 'px';
+  zoomImages.forEach((img) => {
+    // Wrap in a container if needed
+    let wrapper = img.parentElement;
+    if (getComputedStyle(wrapper).position === 'static') {
+      wrapper.style.position = 'relative';
+    }
 
-      img.addEventListener('mousemove', moveLens);
-      img.addEventListener('mouseleave', () => lens.style.visibility = 'hidden');
+    const lens = document.createElement("div");
+    lens.className = "zoom-lens-lens";
+    wrapper.appendChild(lens);
 
-      function moveLens(e) {
-        lens.style.visibility = 'visible';
-        const rect = img.getBoundingClientRect();
-        let x = e.clientX - rect.left;
-        let y = e.clientY - rect.top;
+    const zoomRatio = 2;
+    lens.style.backgroundImage = `url('${img.src}')`;
+    lens.style.backgroundSize = `${img.width * zoomRatio}px ${img.height * zoomRatio}px`;
 
-        x = Math.max(0, Math.min(x, img.width));
-        y = Math.max(0, Math.min(y, img.height));
+    img.addEventListener("mousemove", moveLens);
+    img.addEventListener("mouseleave", () => lens.style.visibility = "hidden");
 
-        const lx = x - lens.offsetWidth / 2;
-        const ly = y - lens.offsetHeight / 2;
-        lens.style.left = lx + 'px';
-        lens.style.top = ly + 'px';
+    function moveLens(e) {
+      lens.style.visibility = "visible";
+      const rect = img.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
 
-        lens.style.backgroundPosition = `-${x * ratio - lens.offsetWidth / 2}px ` +
-                                        `-${y * ratio - lens.offsetHeight / 2}px`;
-      }
-    });
+      const lensSize = 120;
+      const lensX = x - lensSize / 2;
+      const lensY = y - lensSize / 2;
+
+      lens.style.left = `${lensX}px`;
+      lens.style.top = `${lensY}px`;
+
+      lens.style.backgroundPosition = `-${x * zoomRatio - lensSize / 2}px -${y * zoomRatio - lensSize / 2}px`;
+    }
   });
+});
+
 })();
