@@ -1,17 +1,20 @@
 .zoom-lens {
+  display: inline-block;
   position: relative;
   cursor: none;
 }
 
 .zoom-lens-lens {
   position: absolute;
-  border: 3px solid #000;
-  border-radius: 50%;
   width: 120px;
   height: 120px;
-  visibility: hidden;
+  border-radius: 50%;
+  border: 3px solid #000;
   pointer-events: none;
   background-repeat: no-repeat;
   background-size: 200% 200%;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 8px rgba(0,0,0,0.5);
+  visibility: hidden;
+  z-index: 100;
 }
+
